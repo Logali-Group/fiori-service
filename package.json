@@ -25,6 +25,6 @@
     }
   },
   "scripts": {
-    "start": "cds-serve"
+    "start": "npm start -- --profile dev"
   }
 }
