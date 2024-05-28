@@ -1,8 +1,8 @@
 {
   "name": "cap",
   "version": "1.0.0",
-  "description": "A simple CAP project.",
-  "repository": "<Add your repository here>",
+  "description": "Service Web - SAP CAP",
+  "repository": "https://github.com/Logali-Group/fiori-service.git",
   "license": "UNLICENSED",
   "private": true,
   "dependencies": {

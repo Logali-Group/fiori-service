@@ -1,0 +1,5 @@
+services:
+  service-cap:
+      build: .
+      ports:
+        - "6000:4004"
