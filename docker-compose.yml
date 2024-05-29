@@ -2,4 +2,4 @@ services:
   cap:
       build: .
       ports:
-        - "6000:4004"
+        - "5000:4004"
