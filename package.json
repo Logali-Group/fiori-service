@@ -20,9 +20,9 @@
   "cds": {
     "requires": {
       "db": {
-        "kind": "postgres",
-        "pool": {
-          "acquireTimeoutMillis": 5000
+        "kind": "sqlite",
+        "credentials": {
+          "database": "db.sqlite"
         }
       }
     }
