@@ -43,7 +43,7 @@ entity Reviews : cuid {
     user       : String;
     date       : Date;
     rating     : Decimal(4, 2);
-    reviewText : String;
+    reviewText : LargeString;
     product    : Association to Products;
 };
 

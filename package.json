@@ -6,23 +6,29 @@
   "license": "UNLICENSED",
   "private": true,
   "dependencies": {
+    "@cap-js/postgres": "^1.8.0",
     "@sap/cds": "^7.9.2",
     "express": "^4.19.2"
   },
   "devDependencies": {
-    "@cap-js/sqlite": "^1.7.1"
+    "@cap-js/sqlite": "^1.7.1",
+    "@sap/eslint-plugin-ui5-jsdocs": "^2.0.5",
+    "@sap/ux-specification": "^1.120.11",
+    "@sapui5/ts-types": "^1.92.2",
+    "eslint": "^7.32.0"
   },
   "cds": {
-      "requires":{
-        "db":{
-          "kind":"sqlite",
-          "credentials":{
-            "database":"db.sqlite"
-          }
-        }
+    "requires": {
+      "db": {
+        "kind": "postgres"
+      }
     }
   },
   "scripts": {
-    "start": "cds-serve"
-  }
+    "start": "cds-serve",
+    "watch-fiori_xml_annotations": "cds watch --open fiori_xml_annotations/webapp/index.html?sap-ui-xx-viewCache=false"
+  },
+  "sapux": [
+    "app/fiori_xml_annotations"
+  ]
 }
