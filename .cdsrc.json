@@ -4,7 +4,7 @@
         "[pg]": {
           "kind": "postgres",
           "credentials": {
-            "host": "159.65.96.144", 
+            "host": "172.17.0.1", 
             "port": 9000,
             "user": "fioricap",
             "password": "w8iu767q70a1",
