@@ -20,18 +20,11 @@
   "cds": {
     "requires": {
       "db": {
-        "kind": "sqlite",
-        "credentials": {
-          "database": "db.sqlite"
-        }
+        "kind": "postgres"
       }
     }
   },
   "scripts": {
-    "start": "cds-serve",
-    "watch-fiori_xml_annotations": "cds watch --open fiori_xml_annotations/webapp/index.html?sap-ui-xx-viewCache=false"
-  },
-  "sapux": [
-    "app/fiori_xml_annotations"
-  ]
+    "start": "cds-serve"
+  }
 }
