@@ -1,4 +1,4 @@
-FROM node:21.2.0-alpine3.18
+FROM node:20.14.0-alpine3.19
 WORKDIR /app/cap
 COPY package.json .
 RUN npm install
