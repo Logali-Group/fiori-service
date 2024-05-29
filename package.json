@@ -17,6 +17,19 @@
     "@sapui5/ts-types": "^1.92.2",
     "eslint": "^7.32.0"
   },
+    "cds": {
+    "requires": {
+      "db":{
+        "kind": "postgres",
+        "pool": {
+          "acquireTimeoutMillis": 5000,
+          "min": 0,
+          "max": 100,
+          "fifo": true
+        }
+      }
+    }
+  },
   "scripts": {
     "start": "cds-serve"
   }
