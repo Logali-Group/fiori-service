@@ -17,13 +17,6 @@
     "@sapui5/ts-types": "^1.92.2",
     "eslint": "^7.32.0"
   },
-  "cds": {
-    "requires": {
-      "db": {
-        "kind": "postgres"
-      }
-    }
-  },
   "scripts": {
     "start": "cds-serve"
   }
