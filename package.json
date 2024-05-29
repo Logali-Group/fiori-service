@@ -24,8 +24,7 @@
         "pool": {
           "acquireTimeoutMillis": 5000,
           "min": 0,
-          "max": 100,
-          "fifo": true
+          "max": 100
         }
       }
     }
