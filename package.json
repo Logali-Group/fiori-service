@@ -20,7 +20,10 @@
   "cds": {
     "requires": {
       "db": {
-        "kind": "postgres"
+        "kind": "postgres",
+        "pool": {
+          "acquireTimeoutMillis": 5000
+        }
       }
     }
   },
