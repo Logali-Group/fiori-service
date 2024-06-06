@@ -1,0 +1,216 @@
+{
+  "_version": "1.59.0",
+  "sap.app": {
+    "id": "fiorixmlannotations",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:lrop",
+      "version": "1.13.5",
+      "toolsId": "e8fa4a44-29f5-4d37-9700-fc6a5b372284"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/odata/v4/ProductSRV/",
+        "type": "OData",
+        "settings": {
+          "annotations": [
+            "annotations-products",
+            "annotations-categories",
+            "annotations-subcategories",
+            "annotations-status",
+            "annotations-suppliers",
+            "annotations-contacts",
+            "annotations-details",
+            "annotations-colors",
+            "annotations-reviews"
+          ],
+          "localUri": "localService/metadata.xml",
+          "odataVersion": "4.0"
+        }
+      },
+      "annotations-products":{
+        "type": "ODataAnnotation",
+        "uri": "annotations/annotations-products.xml",
+        "settings": {
+          "localUri": "annotations/annotations-products.xml"
+        }
+      },
+      "annotations-categories":{
+        "type": "ODataAnnotation",
+        "uri": "annotations/annotations-categories.xml",
+        "settings": {
+          "localUri": "annotations/annotations-categories.xml"
+        }
+      },
+      "annotations-subcategories":{
+        "type": "ODataAnnotation",
+        "uri": "annotations/annotations-subcategories.xml",
+        "settings": {
+          "localUri": "annotations/annotations-subcategories.xml"
+        }
+      },
+      "annotations-status":{
+        "type": "ODataAnnotation",
+        "uri": "annotations/annotations-status.xml",
+        "settings": {
+          "localUri": "annotations/annotations-status.xml"
+        }
+      },
+      "annotations-suppliers":{
+        "type": "ODataAnnotation",
+        "uri": "annotations/annotations-suppliers.xml",
+        "settings": {
+          "localUri": "annotations/annotations-suppliers.xml"
+        }
+      },
+      "annotations-contacts":{
+        "type": "ODataAnnotation",
+        "uri": "annotations/annotations-contacts.xml",
+        "settings": {
+          "localUri": "annotations/annotations-contacts.xml"
+        }
+      },
+      "annotations-details":{
+        "type": "ODataAnnotation",
+        "uri": "annotations/annotations-details.xml",
+        "settings": {
+          "localUri": "annotations/annotations-details.xml"
+        }
+      },
+      "annotations-colors":{
+        "type": "ODataAnnotation",
+        "uri": "annotations/annotations-colors.xml",
+        "settings": {
+          "localUri": "annotations/annotations-colors.xml"
+        }
+      },
+      "annotations-reviews":{
+        "type": "ODataAnnotation",
+        "uri": "annotations/annotations-reviews.xml",
+        "settings": {
+          "localUri": "annotations/annotations-reviews.xml"
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.124.0",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.ushell": {},
+        "sap.fe.templates": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "fiorixmlannotations.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      },
+      "@i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "uri": "i18n/i18n.properties"
+      }
+    },
+    "resources": {
+      "css": []
+    },
+    "routing": {
+      "config": {},
+      "routes": [
+        {
+          "pattern": ":?query:",
+          "name": "ProductSetList",
+          "target": "ProductSetList"
+        },
+        {
+          "pattern": "ProductSet({key}):?query:",
+          "name": "ProductSetObjectPage",
+          "target": "ProductSetObjectPage"
+        }
+      ],
+      "targets": {
+        "ProductSetList": {
+          "type": "Component",
+          "id": "ProductSetList",
+          "name": "sap.fe.templates.ListReport",
+          "options": {
+            "settings": {
+              "contextPath": "/ProductSet",
+              "variantManagement": "Page",
+              "navigation": {
+                "ProductSet": {
+                  "detail": {
+                    "route": "ProductSetObjectPage"
+                  }
+                }
+              },
+              "controlConfiguration": {
+                "@com.sap.vocabularies.UI.v1.LineItem": {
+                  "tableSettings": {
+                    "type": "ResponsiveTable"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "ProductSetObjectPage": {
+          "type": "Component",
+          "id": "ProductSetObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "editableHeaderContent": false,
+              "contextPath": "/ProductSet"
+            }
+          }
+        }
+      }
+    }
+  },
+  "sap.fiori": {
+    "registrationIds": [],
+    "archeType": "transactional"
+  }
+}

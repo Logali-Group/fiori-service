@@ -1,0 +1,840 @@
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1" />
+    </edmx:Reference>
+
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+        <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1" />
+    </edmx:Reference>
+
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Measures.V1.xml">
+        <edmx:Include Alias="Measures" Namespace="Org.OData.Measures.V1" />
+    </edmx:Reference>
+
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+        <edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1" />
+    </edmx:Reference>
+
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Validation.V1.xml">
+        <edmx:Include Alias="Validation" Namespace="Org.OData.Validation.V1" />
+    </edmx:Reference>
+
+    <edmx:DataServices>
+
+        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ProductCatalog">
+
+            <EntityContainer Name="EntityContainer">
+            
+                <EntitySet Name="ProductSet" EntityType="ProductCatalog.ProductSet">
+                    <NavigationPropertyBinding Path="category" Target="VH_CategorySet" />
+                    <NavigationPropertyBinding Path="subCategory" Target="VH_SubCategorySet" />
+                    <NavigationPropertyBinding Path="supplier" Target="SupplierSet" />
+                    <NavigationPropertyBinding Path="statu" Target="VH_StatuSet" />
+                    <NavigationPropertyBinding Path="toDetails" Target="DetailSet" />
+                    <NavigationPropertyBinding Path="toReviews" Target="ReviewSet" />
+                    <NavigationPropertyBinding Path="SiblingEntity" Target="ProductSet" />
+                </EntitySet>
+                <EntitySet Name="DetailSet" EntityType="ProductCatalog.DetailSet">
+                    <NavigationPropertyBinding Path="color" Target="VH_ColorSet" />
+                    <NavigationPropertyBinding Path="product" Target="ProductSet" />
+                    <NavigationPropertyBinding Path="SiblingEntity" Target="DetailSet" />
+                </EntitySet>
+                <EntitySet Name="ReviewSet" EntityType="ProductCatalog.ReviewSet">
+                    <NavigationPropertyBinding Path="product" Target="ProductSet" />
+                    <NavigationPropertyBinding Path="SiblingEntity" Target="ReviewSet" />
+                </EntitySet>
+                <EntitySet Name="SupplierSet" EntityType="ProductCatalog.SupplierSet">
+                    <NavigationPropertyBinding Path="product" Target="ProductSet" />
+                    <NavigationPropertyBinding Path="contact" Target="ContactSet" />
+                    <NavigationPropertyBinding Path="SiblingEntity" Target="SupplierSet" />
+                </EntitySet>
+                <EntitySet Name="ContactSet" EntityType="ProductCatalog.ContactSet">
+                    <NavigationPropertyBinding Path="supplier" Target="SupplierSet" />
+                    <NavigationPropertyBinding Path="SiblingEntity" Target="ContactSet" />
+                </EntitySet>
+                <EntitySet Name="VH_CategorySet" EntityType="ProductCatalog.VH_CategorySet">
+                    <NavigationPropertyBinding Path="toSubCategories" Target="VH_SubCategorySet" />
+                    <NavigationPropertyBinding Path="texts" Target="VH_CategorySet_texts" />
+                    <NavigationPropertyBinding Path="localized" Target="VH_CategorySet_texts" />
+                </EntitySet>
+                <EntitySet Name="VH_SubCategorySet" EntityType="ProductCatalog.VH_SubCategorySet">
+                    <NavigationPropertyBinding Path="category" Target="VH_CategorySet" />
+                    <NavigationPropertyBinding Path="texts" Target="VH_SubCategorySet_texts" />
+                    <NavigationPropertyBinding Path="localized" Target="VH_SubCategorySet_texts" />
+                </EntitySet>
+                <EntitySet Name="VH_StatuSet" EntityType="ProductCatalog.VH_StatuSet">
+                    <NavigationPropertyBinding Path="texts" Target="VH_StatuSet_texts" />
+                    <NavigationPropertyBinding Path="localized" Target="VH_StatuSet_texts" />
+                </EntitySet>
+                <EntitySet Name="VH_ColorSet" EntityType="ProductCatalog.VH_ColorSet">
+                    <NavigationPropertyBinding Path="texts" Target="VH_ColorSet_texts" />
+                    <NavigationPropertyBinding Path="localized" Target="VH_ColorSet_texts" />
+                </EntitySet>
+                <EntitySet Name="VH_CategorySet_texts" EntityType="ProductCatalog.VH_CategorySet_texts" />
+                <EntitySet Name="VH_SubCategorySet_texts" EntityType="ProductCatalog.VH_SubCategorySet_texts" />
+                <EntitySet Name="VH_StatuSet_texts" EntityType="ProductCatalog.VH_StatuSet_texts" />
+                <EntitySet Name="VH_ColorSet_texts" EntityType="ProductCatalog.VH_ColorSet_texts" />
+            </EntityContainer>
+            <EntityType Name="ProductSet">
+                <Key>
+                    <PropertyRef Name="ID" />
+                    <PropertyRef Name="IsActiveEntity" />
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false" />
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="image" Type="Edm.Stream" />
+                <Property Name="product" Type="Edm.String" MaxLength="8" />
+                <Property Name="productName" Type="Edm.String" />
+                <Property Name="description" Type="Edm.String" />
+                <Property Name="availability" Type="Edm.Int16" />
+                <Property Name="averageRating" Type="Edm.Decimal" Precision="4" Scale="2" />
+                <Property Name="price" Type="Edm.Decimal" Precision="10" Scale="2" />
+                <Property Name="currency" Type="Edm.String" MaxLength="3" DefaultValue="USD" />
+                <NavigationProperty Name="category" Type="ProductCatalog.VH_CategorySet">
+                    <ReferentialConstraint Property="category_ID" ReferencedProperty="ID" />
+                </NavigationProperty>
+                <Property Name="category_ID" Type="Edm.Guid" />
+                <NavigationProperty Name="subCategory" Type="ProductCatalog.VH_SubCategorySet">
+                    <ReferentialConstraint Property="subCategory_ID" ReferencedProperty="ID" />
+                </NavigationProperty>
+                <Property Name="subCategory_ID" Type="Edm.Guid" />
+                <NavigationProperty Name="supplier" Type="ProductCatalog.SupplierSet" Partner="product">
+                    <OnDelete Action="Cascade" />
+                    <ReferentialConstraint Property="ID" ReferencedProperty="product_ID" />
+                </NavigationProperty>
+                <NavigationProperty Name="statu" Type="ProductCatalog.VH_StatuSet">
+                    <ReferentialConstraint Property="statu_code" ReferencedProperty="code" />
+                </NavigationProperty>
+                <Property Name="statu_code" Type="Edm.String" />
+                <NavigationProperty Name="toDetails" Type="Collection(ProductCatalog.DetailSet)" Partner="product">
+                    <OnDelete Action="Cascade" />
+                </NavigationProperty>
+                <NavigationProperty Name="toReviews" Type="Collection(ProductCatalog.ReviewSet)" Partner="product">
+                    <OnDelete Action="Cascade" />
+                </NavigationProperty>
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true" />
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false" />
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false" />
+                <NavigationProperty Name="DraftAdministrativeData" Type="ProductCatalog.DraftAdministrativeData" ContainsTarget="true" />
+                <NavigationProperty Name="SiblingEntity" Type="ProductCatalog.ProductSet" />
+            </EntityType>
+            <EntityType Name="DetailSet">
+                <Key>
+                    <PropertyRef Name="ID" />
+                    <PropertyRef Name="IsActiveEntity" />
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false" />
+                <Property Name="image" Type="Edm.Stream" />
+                <NavigationProperty Name="color" Type="ProductCatalog.VH_ColorSet">
+                    <ReferentialConstraint Property="color_ID" ReferencedProperty="ID" />
+                </NavigationProperty>
+                <Property Name="color_ID" Type="Edm.Guid" />
+                <Property Name="height" Type="Edm.Decimal" Precision="4" Scale="2" />
+                <Property Name="width" Type="Edm.Decimal" Precision="4" Scale="2" />
+                <Property Name="depth" Type="Edm.Decimal" Precision="4" Scale="2" />
+                <Property Name="unitVolume" Type="Edm.String" MaxLength="2" DefaultValue="CM" />
+                <Property Name="weight" Type="Edm.Decimal" Precision="4" Scale="2" />
+                <Property Name="unitMass" Type="Edm.String" MaxLength="2" DefaultValue="KG" />
+                <NavigationProperty Name="product" Type="ProductCatalog.ProductSet" Partner="toDetails">
+                    <ReferentialConstraint Property="product_ID" ReferencedProperty="ID" />
+                </NavigationProperty>
+                <Property Name="product_ID" Type="Edm.Guid" />
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true" />
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false" />
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false" />
+                <NavigationProperty Name="DraftAdministrativeData" Type="ProductCatalog.DraftAdministrativeData" ContainsTarget="true" />
+                <NavigationProperty Name="SiblingEntity" Type="ProductCatalog.DetailSet" />
+            </EntityType>
+            <EntityType Name="ReviewSet">
+                <Key>
+                    <PropertyRef Name="ID" />
+                    <PropertyRef Name="IsActiveEntity" />
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false" />
+                <Property Name="user" Type="Edm.String" />
+                <Property Name="date" Type="Edm.Date" />
+                <Property Name="rating" Type="Edm.Decimal" Precision="4" Scale="2" />
+                <Property Name="reviewText" Type="Edm.String" />
+                <NavigationProperty Name="product" Type="ProductCatalog.ProductSet" Partner="toReviews">
+                    <ReferentialConstraint Property="product_ID" ReferencedProperty="ID" />
+                </NavigationProperty>
+                <Property Name="product_ID" Type="Edm.Guid" />
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true" />
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false" />
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false" />
+                <NavigationProperty Name="DraftAdministrativeData" Type="ProductCatalog.DraftAdministrativeData" ContainsTarget="true" />
+                <NavigationProperty Name="SiblingEntity" Type="ProductCatalog.ReviewSet" />
+            </EntityType>
+            <EntityType Name="SupplierSet">
+                <Key>
+                    <PropertyRef Name="ID" />
+                    <PropertyRef Name="IsActiveEntity" />
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false" />
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255" />
+                <Property Name="supplier" Type="Edm.String" MaxLength="9" />
+                <Property Name="supplierName" Type="Edm.String" />
+                <Property Name="webAddress" Type="Edm.String" MaxLength="120" />
+                <NavigationProperty Name="product" Type="ProductCatalog.ProductSet" Partner="supplier">
+                    <ReferentialConstraint Property="product_ID" ReferencedProperty="ID" />
+                </NavigationProperty>
+                <Property Name="product_ID" Type="Edm.Guid" />
+                <NavigationProperty Name="contact" Type="ProductCatalog.ContactSet" Partner="supplier">
+                    <OnDelete Action="Cascade" />
+                    <ReferentialConstraint Property="ID" ReferencedProperty="supplier_ID" />
+                </NavigationProperty>
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true" />
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false" />
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false" />
+                <NavigationProperty Name="DraftAdministrativeData" Type="ProductCatalog.DraftAdministrativeData" ContainsTarget="true" />
+                <NavigationProperty Name="SiblingEntity" Type="ProductCatalog.SupplierSet" />
+            </EntityType>
+            <EntityType Name="ContactSet">
+                <Key>
+                    <PropertyRef Name="ID" />
+                    <PropertyRef Name="IsActiveEntity" />
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false" />
+                <Property Name="fullName" Type="Edm.String" />
+                <Property Name="email" Type="Edm.String" />
+                <Property Name="phoneNumber" Type="Edm.String" />
+                <Property Name="address" Type="Edm.String" />
+                <NavigationProperty Name="supplier" Type="ProductCatalog.SupplierSet" Partner="contact">
+                    <ReferentialConstraint Property="supplier_ID" ReferencedProperty="ID" />
+                </NavigationProperty>
+                <Property Name="supplier_ID" Type="Edm.Guid" />
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true" />
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false" />
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false" />
+                <NavigationProperty Name="DraftAdministrativeData" Type="ProductCatalog.DraftAdministrativeData" ContainsTarget="true" />
+                <NavigationProperty Name="SiblingEntity" Type="ProductCatalog.ContactSet" />
+            </EntityType>
+            <EntityType Name="VH_CategorySet">
+                <Key>
+                    <PropertyRef Name="ID" />
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false" />
+                <Property Name="name" Type="Edm.String" MaxLength="255" />
+                <Property Name="descr" Type="Edm.String" MaxLength="1000" />
+                <NavigationProperty Name="toSubCategories" Type="Collection(ProductCatalog.VH_SubCategorySet)" Partner="category">
+                    <OnDelete Action="Cascade" />
+                </NavigationProperty>
+                <NavigationProperty Name="texts" Type="Collection(ProductCatalog.VH_CategorySet_texts)">
+                    <OnDelete Action="Cascade" />
+                </NavigationProperty>
+                <NavigationProperty Name="localized" Type="ProductCatalog.VH_CategorySet_texts">
+                    <ReferentialConstraint Property="ID" ReferencedProperty="ID" />
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="VH_SubCategorySet">
+                <Key>
+                    <PropertyRef Name="ID" />
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false" />
+                <Property Name="name" Type="Edm.String" MaxLength="255" />
+                <Property Name="descr" Type="Edm.String" MaxLength="1000" />
+                <NavigationProperty Name="category" Type="ProductCatalog.VH_CategorySet" Partner="toSubCategories">
+                    <ReferentialConstraint Property="category_ID" ReferencedProperty="ID" />
+                </NavigationProperty>
+                <Property Name="category_ID" Type="Edm.Guid" />
+                <NavigationProperty Name="texts" Type="Collection(ProductCatalog.VH_SubCategorySet_texts)">
+                    <OnDelete Action="Cascade" />
+                </NavigationProperty>
+                <NavigationProperty Name="localized" Type="ProductCatalog.VH_SubCategorySet_texts">
+                    <ReferentialConstraint Property="ID" ReferencedProperty="ID" />
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="VH_StatuSet">
+                <Key>
+                    <PropertyRef Name="code" />
+                </Key>
+                <Property Name="name" Type="Edm.String" MaxLength="255" />
+                <Property Name="descr" Type="Edm.String" MaxLength="1000" />
+                <Property Name="code" Type="Edm.String" Nullable="false" />
+                <NavigationProperty Name="texts" Type="Collection(ProductCatalog.VH_StatuSet_texts)">
+                    <OnDelete Action="Cascade" />
+                </NavigationProperty>
+                <NavigationProperty Name="localized" Type="ProductCatalog.VH_StatuSet_texts">
+                    <ReferentialConstraint Property="code" ReferencedProperty="code" />
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="VH_ColorSet">
+                <Key>
+                    <PropertyRef Name="ID" />
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false" />
+                <Property Name="name" Type="Edm.String" MaxLength="255" />
+                <Property Name="descr" Type="Edm.String" MaxLength="1000" />
+                <NavigationProperty Name="texts" Type="Collection(ProductCatalog.VH_ColorSet_texts)">
+                    <OnDelete Action="Cascade" />
+                </NavigationProperty>
+                <NavigationProperty Name="localized" Type="ProductCatalog.VH_ColorSet_texts">
+                    <ReferentialConstraint Property="ID" ReferencedProperty="ID" />
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="DraftAdministrativeData">
+                <Key>
+                    <PropertyRef Name="DraftUUID" />
+                </Key>
+                <Property Name="DraftUUID" Type="Edm.Guid" Nullable="false" />
+                <Property Name="CreationDateTime" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="CreatedByUser" Type="Edm.String" MaxLength="256" />
+                <Property Name="DraftIsCreatedByMe" Type="Edm.Boolean" />
+                <Property Name="LastChangeDateTime" Type="Edm.DateTimeOffset" Precision="7" />
+                <Property Name="LastChangedByUser" Type="Edm.String" MaxLength="256" />
+                <Property Name="InProcessByUser" Type="Edm.String" MaxLength="256" />
+                <Property Name="DraftIsProcessedByMe" Type="Edm.Boolean" />
+            </EntityType>
+            <EntityType Name="VH_CategorySet_texts">
+                <Key>
+                    <PropertyRef Name="locale" />
+                    <PropertyRef Name="ID" />
+                </Key>
+                <Property Name="locale" Type="Edm.String" MaxLength="14" Nullable="false" />
+                <Property Name="ID" Type="Edm.Guid" Nullable="false" />
+                <Property Name="name" Type="Edm.String" MaxLength="255" />
+                <Property Name="descr" Type="Edm.String" MaxLength="1000" />
+            </EntityType>
+            <EntityType Name="VH_SubCategorySet_texts">
+                <Key>
+                    <PropertyRef Name="locale" />
+                    <PropertyRef Name="ID" />
+                </Key>
+                <Property Name="locale" Type="Edm.String" MaxLength="14" Nullable="false" />
+                <Property Name="ID" Type="Edm.Guid" Nullable="false" />
+                <Property Name="name" Type="Edm.String" MaxLength="255" />
+                <Property Name="descr" Type="Edm.String" MaxLength="1000" />
+            </EntityType>
+            <EntityType Name="VH_StatuSet_texts">
+                <Key>
+                    <PropertyRef Name="locale" />
+                    <PropertyRef Name="code" />
+                </Key>
+                <Property Name="locale" Type="Edm.String" MaxLength="14" Nullable="false" />
+                <Property Name="name" Type="Edm.String" MaxLength="255" />
+                <Property Name="descr" Type="Edm.String" MaxLength="1000" />
+                <Property Name="code" Type="Edm.String" Nullable="false" />
+            </EntityType>
+            <EntityType Name="VH_ColorSet_texts">
+                <Key>
+                    <PropertyRef Name="locale" />
+                    <PropertyRef Name="ID" />
+                </Key>
+                <Property Name="locale" Type="Edm.String" MaxLength="14" Nullable="false" />
+                <Property Name="ID" Type="Edm.Guid" Nullable="false" />
+                <Property Name="name" Type="Edm.String" MaxLength="255" />
+                <Property Name="descr" Type="Edm.String" MaxLength="1000" />
+            </EntityType>
+            <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="ProductCatalog.ProductSet" />
+                <Parameter Name="SideEffectsQualifier" Type="Edm.String" />
+                <ReturnType Type="ProductCatalog.ProductSet" />
+            </Action>
+            <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="ProductCatalog.DetailSet" />
+                <Parameter Name="SideEffectsQualifier" Type="Edm.String" />
+                <ReturnType Type="ProductCatalog.DetailSet" />
+            </Action>
+            <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="ProductCatalog.ReviewSet" />
+                <Parameter Name="SideEffectsQualifier" Type="Edm.String" />
+                <ReturnType Type="ProductCatalog.ReviewSet" />
+            </Action>
+            <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="ProductCatalog.SupplierSet" />
+                <Parameter Name="SideEffectsQualifier" Type="Edm.String" />
+                <ReturnType Type="ProductCatalog.SupplierSet" />
+            </Action>
+            <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="ProductCatalog.ContactSet" />
+                <Parameter Name="SideEffectsQualifier" Type="Edm.String" />
+                <ReturnType Type="ProductCatalog.ContactSet" />
+            </Action>
+            <Action Name="draftActivate" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="ProductCatalog.ProductSet" />
+                <ReturnType Type="ProductCatalog.ProductSet" />
+            </Action>
+            <Action Name="draftEdit" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="ProductCatalog.ProductSet" />
+                <Parameter Name="PreserveChanges" Type="Edm.Boolean" />
+                <ReturnType Type="ProductCatalog.ProductSet" />
+            </Action>
+            <Annotations Target="ProductCatalog.EntityContainer/ProductSet">
+                <Annotation Term="Common.DraftRoot">
+                    <Record Type="Common.DraftRootType">
+                        <PropertyValue Property="ActivationAction" String="ProductCatalog.draftActivate" />
+                        <PropertyValue Property="EditAction" String="ProductCatalog.draftEdit" />
+                        <PropertyValue Property="PreparationAction" String="ProductCatalog.draftPrepare" />
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ProductCatalog.ProductSet/ID">
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true" />
+            </Annotations>
+            <Annotations Target="ProductCatalog.ProductSet/createdAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true" />
+                <Annotation Term="Core.Immutable" Bool="true" />
+                <Annotation Term="Core.Computed" Bool="true" />
+                <Annotation Term="Common.Label" String="Fecha de creación" />
+            </Annotations>
+            <Annotations Target="ProductCatalog.ProductSet/createdBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true" />
+                <Annotation Term="Core.Immutable" Bool="true" />
+                <Annotation Term="Core.Computed" Bool="true" />
+                <Annotation Term="Core.Description" String="ID único de usuario" />
+                <Annotation Term="Common.Label" String="Creado por" />
+            </Annotations>
+            <Annotations Target="ProductCatalog.ProductSet/modifiedAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true" />
+                <Annotation Term="Core.Computed" Bool="true" />
+                <Annotation Term="Common.Label" String="Modificado el" />
+            </Annotations>
+            <Annotations Target="ProductCatalog.ProductSet/modifiedBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true" />
+                <Annotation Term="Core.Computed" Bool="true" />
+                <Annotation Term="Core.Description" String="ID único de usuario" />
+                <Annotation Term="Common.Label" String="Modificado por" />
+            </Annotations>
+            <Annotations Target="ProductCatalog.ProductSet/image">
+                <Annotation Term="UI.IsImage" Bool="true" />
+                <Annotation Term="Core.MediaType" String="image/jpg" />
+            </Annotations>
+            <Annotations Target="ProductCatalog.ProductSet/price">
+                <Annotation Term="Measures.Unit" Path="currency" />
+            </Annotations>
+            <Annotations Target="ProductCatalog.ProductSet/currency">
+                <Annotation Term="Common.IsUnit" Bool="true" />
+            </Annotations>
+            <Annotations Target="ProductCatalog.ProductSet/category_ID">
+                <Annotation Term="Common.ValueList">
+                    <Record Type="Common.ValueListType">
+                        <PropertyValue Property="Label" String="VH_CategorySet" />
+                        <PropertyValue Property="CollectionPath" String="VH_CategorySet" />
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="category_ID" />
+                                    <PropertyValue Property="ValueListProperty" String="ID" />
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="name" />
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ProductCatalog.ProductSet/subCategory_ID">
+                <Annotation Term="Common.ValueList">
+                    <Record Type="Common.ValueListType">
+                        <PropertyValue Property="Label" String="VH_SubCategorySet" />
+                        <PropertyValue Property="CollectionPath" String="VH_SubCategorySet" />
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="subCategory_ID" />
+                                    <PropertyValue Property="ValueListProperty" String="ID" />
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="name" />
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ProductCatalog.ProductSet/statu_code">
+                <Annotation Term="Common.ValueList">
+                    <Record Type="Common.ValueListType">
+                        <PropertyValue Property="Label" String="VH_StatuSet" />
+                        <PropertyValue Property="CollectionPath" String="VH_StatuSet" />
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="statu_code" />
+                                    <PropertyValue Property="ValueListProperty" String="code" />
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="name" />
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ProductCatalog.ProductSet/IsActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true" />
+            </Annotations>
+            <Annotations Target="ProductCatalog.ProductSet/HasActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true" />
+            </Annotations>
+            <Annotations Target="ProductCatalog.ProductSet/HasDraftEntity">
+                <Annotation Term="UI.Hidden" Bool="true" />
+            </Annotations>
+            <Annotations Target="ProductCatalog.ProductSet/DraftAdministrativeData">
+                <Annotation Term="UI.Hidden" Bool="true" />
+            </Annotations>
+            <Annotations Target="ProductCatalog.EntityContainer/DetailSet">
+                <Annotation Term="Common.DraftNode">
+                    <Record Type="Common.DraftNodeType">
+                        <PropertyValue Property="PreparationAction" String="ProductCatalog.draftPrepare" />
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ProductCatalog.DetailSet/ID">
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true" />
+            </Annotations>
+            <Annotations Target="ProductCatalog.DetailSet/image">
+                <Annotation Term="UI.IsImage" Bool="true" />
+                <Annotation Term="Core.MediaType" String="image/jpg" />
+            </Annotations>
+            <Annotations Target="ProductCatalog.DetailSet/color_ID">
+                <Annotation Term="Common.ValueList">
+                    <Record Type="Common.ValueListType">
+                        <PropertyValue Property="Label" String="VH_ColorSet" />
+                        <PropertyValue Property="CollectionPath" String="VH_ColorSet" />
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="color_ID" />
+                                    <PropertyValue Property="ValueListProperty" String="ID" />
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="name" />
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ProductCatalog.DetailSet/height">
+                <Annotation Term="Measures.Unit" Path="unitVolume" />
+            </Annotations>
+            <Annotations Target="ProductCatalog.DetailSet/width">
+                <Annotation Term="Measures.Unit" Path="unitVolume" />
+            </Annotations>
+            <Annotations Target="ProductCatalog.DetailSet/depth">
+                <Annotation Term="Measures.Unit" Path="unitVolume" />
+            </Annotations>
+            <Annotations Target="ProductCatalog.DetailSet/unitVolume">
+                <Annotation Term="Common.IsUnit" Bool="true" />
+            </Annotations>
+            <Annotations Target="ProductCatalog.DetailSet/weight">
+                <Annotation Term="Measures.Unit" Path="unitMass" />
+            </Annotations>
+            <Annotations Target="ProductCatalog.DetailSet/unitMass">
+                <Annotation Term="Common.IsUnit" Bool="true" />
+            </Annotations>
+            <Annotations Target="ProductCatalog.DetailSet/IsActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true" />
+            </Annotations>
+            <Annotations Target="ProductCatalog.DetailSet/HasActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true" />
+            </Annotations>
+            <Annotations Target="ProductCatalog.DetailSet/HasDraftEntity">
+                <Annotation Term="UI.Hidden" Bool="true" />
+            </Annotations>
+            <Annotations Target="ProductCatalog.DetailSet/DraftAdministrativeData">
+                <Annotation Term="UI.Hidden" Bool="true" />
+            </Annotations>
+            <Annotations Target="ProductCatalog.EntityContainer/ReviewSet">
+                <Annotation Term="Common.DraftNode">
+                    <Record Type="Common.DraftNodeType">
+                        <PropertyValue Property="PreparationAction" String="ProductCatalog.draftPrepare" />
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ProductCatalog.ReviewSet/ID">
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true" />
+            </Annotations>
+            <Annotations Target="ProductCatalog.ReviewSet/IsActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true" />
+            </Annotations>
+            <Annotations Target="ProductCatalog.ReviewSet/HasActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true" />
+            </Annotations>
+            <Annotations Target="ProductCatalog.ReviewSet/HasDraftEntity">
+                <Annotation Term="UI.Hidden" Bool="true" />
+            </Annotations>
+            <Annotations Target="ProductCatalog.ReviewSet/DraftAdministrativeData">
+                <Annotation Term="UI.Hidden" Bool="true" />
+            </Annotations>
+            <Annotations Target="ProductCatalog.EntityContainer/SupplierSet">
+                <Annotation Term="Common.DraftNode">
+                    <Record Type="Common.DraftNodeType">
+                        <PropertyValue Property="PreparationAction" String="ProductCatalog.draftPrepare" />
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ProductCatalog.SupplierSet/ID">
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true" />
+            </Annotations>
+            <Annotations Target="ProductCatalog.SupplierSet/createdAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true" />
+                <Annotation Term="Core.Immutable" Bool="true" />
+                <Annotation Term="Core.Computed" Bool="true" />
+                <Annotation Term="Common.Label" String="Fecha de creación" />
+            </Annotations>
+            <Annotations Target="ProductCatalog.SupplierSet/createdBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true" />
+                <Annotation Term="Core.Immutable" Bool="true" />
+                <Annotation Term="Core.Computed" Bool="true" />
+                <Annotation Term="Core.Description" String="ID único de usuario" />
+                <Annotation Term="Common.Label" String="Creado por" />
+            </Annotations>
+            <Annotations Target="ProductCatalog.SupplierSet/modifiedAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true" />
+                <Annotation Term="Core.Computed" Bool="true" />
+                <Annotation Term="Common.Label" String="Modificado el" />
+            </Annotations>
+            <Annotations Target="ProductCatalog.SupplierSet/modifiedBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true" />
+                <Annotation Term="Core.Computed" Bool="true" />
+                <Annotation Term="Core.Description" String="ID único de usuario" />
+                <Annotation Term="Common.Label" String="Modificado por" />
+            </Annotations>
+            <Annotations Target="ProductCatalog.SupplierSet/IsActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true" />
+            </Annotations>
+            <Annotations Target="ProductCatalog.SupplierSet/HasActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true" />
+            </Annotations>
+            <Annotations Target="ProductCatalog.SupplierSet/HasDraftEntity">
+                <Annotation Term="UI.Hidden" Bool="true" />
+            </Annotations>
+            <Annotations Target="ProductCatalog.SupplierSet/DraftAdministrativeData">
+                <Annotation Term="UI.Hidden" Bool="true" />
+            </Annotations>
+            <Annotations Target="ProductCatalog.EntityContainer/ContactSet">
+                <Annotation Term="Common.DraftNode">
+                    <Record Type="Common.DraftNodeType">
+                        <PropertyValue Property="PreparationAction" String="ProductCatalog.draftPrepare" />
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ProductCatalog.ContactSet/ID">
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true" />
+            </Annotations>
+            <Annotations Target="ProductCatalog.ContactSet/IsActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true" />
+            </Annotations>
+            <Annotations Target="ProductCatalog.ContactSet/HasActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true" />
+            </Annotations>
+            <Annotations Target="ProductCatalog.ContactSet/HasDraftEntity">
+                <Annotation Term="UI.Hidden" Bool="true" />
+            </Annotations>
+            <Annotations Target="ProductCatalog.ContactSet/DraftAdministrativeData">
+                <Annotation Term="UI.Hidden" Bool="true" />
+            </Annotations>
+            <Annotations Target="ProductCatalog.VH_CategorySet">
+                <Annotation Term="UI.Identification">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="name" />
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ProductCatalog.VH_CategorySet/ID">
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true" />
+            </Annotations>
+            <Annotations Target="ProductCatalog.VH_CategorySet/name">
+                <Annotation Term="Common.Label" String="Nombre" />
+            </Annotations>
+            <Annotations Target="ProductCatalog.VH_CategorySet/descr">
+                <Annotation Term="Common.Label" String="Descripción" />
+            </Annotations>
+            <Annotations Target="ProductCatalog.VH_SubCategorySet">
+                <Annotation Term="UI.Identification">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="name" />
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ProductCatalog.VH_SubCategorySet/ID">
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true" />
+            </Annotations>
+            <Annotations Target="ProductCatalog.VH_SubCategorySet/name">
+                <Annotation Term="Common.Label" String="Nombre" />
+            </Annotations>
+            <Annotations Target="ProductCatalog.VH_SubCategorySet/descr">
+                <Annotation Term="Common.Label" String="Descripción" />
+            </Annotations>
+            <Annotations Target="ProductCatalog.VH_SubCategorySet/category_ID">
+                <Annotation Term="Common.ValueList">
+                    <Record Type="Common.ValueListType">
+                        <PropertyValue Property="Label" String="VH_CategorySet" />
+                        <PropertyValue Property="CollectionPath" String="VH_CategorySet" />
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="category_ID" />
+                                    <PropertyValue Property="ValueListProperty" String="ID" />
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="name" />
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ProductCatalog.VH_StatuSet">
+                <Annotation Term="UI.Identification">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="name" />
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ProductCatalog.VH_StatuSet/name">
+                <Annotation Term="Common.Label" String="Nombre" />
+            </Annotations>
+            <Annotations Target="ProductCatalog.VH_StatuSet/descr">
+                <Annotation Term="Common.Label" String="Descripción" />
+            </Annotations>
+            <Annotations Target="ProductCatalog.VH_StatuSet/code">
+                <Annotation Term="Validation.AllowedValues">
+                    <Collection>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="InStock" />
+                            <PropertyValue Property="Value" String="In Stock" />
+                        </Record>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="LowAvailability" />
+                            <PropertyValue Property="Value" String="Low Availability" />
+                        </Record>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="NotInStock" />
+                            <PropertyValue Property="Value" String="Not In Stock" />
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ProductCatalog.VH_ColorSet">
+                <Annotation Term="UI.Identification">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="name" />
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ProductCatalog.VH_ColorSet/ID">
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true" />
+            </Annotations>
+            <Annotations Target="ProductCatalog.VH_ColorSet/name">
+                <Annotation Term="Common.Label" String="Nombre" />
+            </Annotations>
+            <Annotations Target="ProductCatalog.VH_ColorSet/descr">
+                <Annotation Term="Common.Label" String="Descripción" />
+            </Annotations>
+            <Annotations Target="ProductCatalog.DraftAdministrativeData">
+                <Annotation Term="Common.Label" String="Datos administrativos en borrador" />
+            </Annotations>
+            <Annotations Target="ProductCatalog.DraftAdministrativeData/DraftUUID">
+                <Annotation Term="UI.Hidden" Bool="true" />
+                <Annotation Term="Common.Label" String="Borrador (ID técnico)" />
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true" />
+            </Annotations>
+            <Annotations Target="ProductCatalog.DraftAdministrativeData/CreationDateTime">
+                <Annotation Term="Common.Label" String="Borrador creado el" />
+            </Annotations>
+            <Annotations Target="ProductCatalog.DraftAdministrativeData/CreatedByUser">
+                <Annotation Term="Common.Label" String="Borrador creado por" />
+            </Annotations>
+            <Annotations Target="ProductCatalog.DraftAdministrativeData/DraftIsCreatedByMe">
+                <Annotation Term="UI.Hidden" Bool="true" />
+                <Annotation Term="Common.Label" String="Borrador creado por mí" />
+            </Annotations>
+            <Annotations Target="ProductCatalog.DraftAdministrativeData/LastChangeDateTime">
+                <Annotation Term="Common.Label" String="Fecha del último cambio en borrador" />
+            </Annotations>
+            <Annotations Target="ProductCatalog.DraftAdministrativeData/LastChangedByUser">
+                <Annotation Term="Common.Label" String="Autor del último cambio en borrador" />
+            </Annotations>
+            <Annotations Target="ProductCatalog.DraftAdministrativeData/InProcessByUser">
+                <Annotation Term="Common.Label" String="Borrador en proceso por" />
+            </Annotations>
+            <Annotations Target="ProductCatalog.DraftAdministrativeData/DraftIsProcessedByMe">
+                <Annotation Term="UI.Hidden" Bool="true" />
+                <Annotation Term="Common.Label" String="Borrador en proceso por mí" />
+            </Annotations>
+            <Annotations Target="ProductCatalog.VH_CategorySet_texts/locale">
+                <Annotation Term="Common.Label" String="Código de idioma" />
+            </Annotations>
+            <Annotations Target="ProductCatalog.VH_CategorySet_texts/ID">
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true" />
+            </Annotations>
+            <Annotations Target="ProductCatalog.VH_CategorySet_texts/name">
+                <Annotation Term="Common.Label" String="Nombre" />
+            </Annotations>
+            <Annotations Target="ProductCatalog.VH_CategorySet_texts/descr">
+                <Annotation Term="Common.Label" String="Descripción" />
+            </Annotations>
+            <Annotations Target="ProductCatalog.VH_SubCategorySet_texts/locale">
+                <Annotation Term="Common.Label" String="Código de idioma" />
+            </Annotations>
+            <Annotations Target="ProductCatalog.VH_SubCategorySet_texts/ID">
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true" />
+            </Annotations>
+            <Annotations Target="ProductCatalog.VH_SubCategorySet_texts/name">
+                <Annotation Term="Common.Label" String="Nombre" />
+            </Annotations>
+            <Annotations Target="ProductCatalog.VH_SubCategorySet_texts/descr">
+                <Annotation Term="Common.Label" String="Descripción" />
+            </Annotations>
+            <Annotations Target="ProductCatalog.VH_StatuSet_texts/locale">
+                <Annotation Term="Common.Label" String="Código de idioma" />
+            </Annotations>
+            <Annotations Target="ProductCatalog.VH_StatuSet_texts/name">
+                <Annotation Term="Common.Label" String="Nombre" />
+            </Annotations>
+            <Annotations Target="ProductCatalog.VH_StatuSet_texts/descr">
+                <Annotation Term="Common.Label" String="Descripción" />
+            </Annotations>
+            <Annotations Target="ProductCatalog.VH_StatuSet_texts/code">
+                <Annotation Term="Validation.AllowedValues">
+                    <Collection>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="InStock" />
+                            <PropertyValue Property="Value" String="In Stock" />
+                        </Record>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="LowAvailability" />
+                            <PropertyValue Property="Value" String="Low Availability" />
+                        </Record>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="NotInStock" />
+                            <PropertyValue Property="Value" String="Not In Stock" />
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ProductCatalog.VH_ColorSet_texts/locale">
+                <Annotation Term="Common.Label" String="Código de idioma" />
+            </Annotations>
+            <Annotations Target="ProductCatalog.VH_ColorSet_texts/ID">
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true" />
+            </Annotations>
+            <Annotations Target="ProductCatalog.VH_ColorSet_texts/name">
+                <Annotation Term="Common.Label" String="Nombre" />
+            </Annotations>
+            <Annotations Target="ProductCatalog.VH_ColorSet_texts/descr">
+                <Annotation Term="Common.Label" String="Descripción" />
+            </Annotations>
+            
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

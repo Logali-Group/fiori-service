@@ -1,0 +1,57 @@
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/>
+    </edmx:Reference>
+
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+        <edmx:Include Namespace="com.sap.vocabularies.UI.v1" Alias="UI"/>
+    </edmx:Reference>
+
+    <edmx:Reference Uri="/odata/v4/ProductSRV/$metadata">
+        <edmx:Include Namespace="ProductCatalog"  Alias="contacts"/>
+    </edmx:Reference>
+
+    <edmx:DataServices>
+
+        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="local5">
+
+            <Annotations Target="ProductCatalog.ContactSet/fullName">
+                <Annotation Term="Common.Label" String="{@i18n>fullName}"/>
+            </Annotations>
+
+            <Annotations Target="ProductCatalog.ContactSet/phoneNumber">
+                <Annotation Term="Common.Label" String="{@i18n>phoneNumber}"/>
+            </Annotations>
+
+            <Annotations Target="ProductCatalog.ContactSet/email">
+                <Annotation Term="Common.Label" String="{@i18n>email}"/>
+            </Annotations>
+
+            <Annotations Target="ProductCatalog.ContactSet">
+
+                <Annotation Term="UI.FieldGroup" Qualifier="Contact">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="fullName"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="email"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="phoneNumber"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+
+            </Annotations>
+
+        </Schema>
+
+    </edmx:DataServices>
+
+</edmx:Edmx>

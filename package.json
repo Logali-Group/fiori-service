@@ -25,6 +25,10 @@
     }
   },
   "scripts": {
-    "start": "cds-serve"
-  }
+    "start": "cds-serve",
+    "watch-fiori-xml-annotations": "cds watch --open fiori-xml-annotations/webapp/index.html?sap-ui-xx-viewCache=false"
+  },
+  "sapux": [
+    "app/fiori-xml-annotations"
+  ]
 }
